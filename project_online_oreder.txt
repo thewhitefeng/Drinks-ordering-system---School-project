@@ -1,0 +1,593 @@
+/*
+The program is a drinks ordering system that allows you to select and order various drinks. 
+It has a user validation check and has the option to create user accounts.
+It provides a menu where you can browse different drink categories such as spirits, cocktails, mocktails, and refreshments. 
+You can choose a category, view the available drinks, select a drink, choose a size if applicable, enter the quantity, and add it to your order. 
+The program calculates the total price and keeps track of your order.
+Once you're finished selecting the drinks, you can check out and exit the program or return back to the menu.	
+*/
+
+#include<iostream>
+#include<stdlib.h>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class user{
+	string name;
+	string address;
+	string username;
+	string password;
+	public:
+		void setall(string,string,string,string);
+		string getname();		
+		string getusername();
+		string getpassword();
+		void readall();
+};
+
+class drinks{
+	string name;
+	float price;
+	float doubleprice;
+	string description;
+ 	public:
+		void setdrinks(string,float,float);
+		void setcocktails(string,float,string);
+		string getdname();
+		float getprice();
+		float getdoubleprice();
+		string getdescription();
+		string pinakes();
+};		
+ void pinakes(drinks spirits[],drinks cocktails[],drinks mocktails[],drinks refreshments[],user u[]){
+	
+	 spirits[0].setdrinks("Whiskey\t\t\t",6.50,6);  
+	 spirits[1].setdrinks("Vodka  \t\t\t",6.00,5);
+	 spirits[2].setdrinks("Gin    \t\t\t",6.00,5);
+		 
+	 cocktails[0].setcocktails("Margarita  \t\t\t",7.50,"\n\t\tTequila-Cointreau-Lime ");
+	 cocktails[1].setcocktails("Dry Martini\t\t\t",8.50,"\n\t\tDry Vermouth-Gin");
+     cocktails[2].setcocktails("Daiquiri   \t\t\t",8.00,"\n\t\tWhite Rum-Lime-Sugar Syrup");
+     
+     mocktails[0].setcocktails("Pineapple Paradise\t\t\t",6.5,"\n\t\tPineapple-Lemon-Banana");
+     mocktails[1].setcocktails("Cranberry Splash  \t\t\t",6.5,"\n\t\tCranberry-Orange-Raspberries");
+     mocktails[2].setcocktails("Tropical Sunset   \t\t\t",6.5,"\n\t\tPassion fruit-Grapefruit-Pineapple");
+       
+     refreshments[0].setdrinks("Pepsi      \t\t\t",1,1.5);
+     refreshments[1].setdrinks("Orange soda\t\t\t",1,1.5);
+     refreshments[2].setdrinks("Water      \t\t\t",0.5,1);
+     
+   	u[0].setall("lakis","papaki 4","la","1234");
+	u[1].setall("lakis","perikou 8","pa","12345");
+	u[2].setall("lakis","valinou 60","ki","01234");
+}
+void welcome();
+int check(user u[]);//account check
+void menu();
+void menu0();
+
+void displayDesign();
+int main(){ 
+float sum=0.0;
+	int x,answer,menu1,m,choice,q;
+	int menu2,z,z1,size,a,ordersize=2;
+    drinks spirits[3],cocktails[3],mocktails[3],refreshments[3]; //items
+   	user u[3],newuser;//accounts
+    pinakes(spirits,cocktails,mocktails,refreshments,u);
+	vector<string> orders;  //order
+	string orderitem,ord="Double ",ord1="Large ",ord2="Small ";
+	welcome();
+	 getchar();
+	 system("CLS");
+   do{		
+   void menu0();
+	cout<<"Choose one of the bellow by typing 1 or 2 :"<<endl;	
+	cout<<"1.Registered\n2.New account"<<endl;	
+		cin>>answer;
+		system("CLS");			
+			if(answer==1)
+				do{
+			a=check(u);	
+	        }while(a!=1); //account check
+	         else if(answer==2)
+	          newuser.readall();		//create new acc
+	       getchar();      	         
+	    }while(answer<1 || answer> 2);
+	    system("CLS");
+	   
+	 
+ 	do{ 
+ 		do{	 
+			do{	
+				menu();					//main menu
+				cin>>menu1;	
+				system("CLS");			
+			}while(menu1<1 || menu1>5);		
+					system("CLS");	
+	switch(menu1){	
+				case 1:		 	do{ menu0();
+								for(int i=0;i<3;i++){
+								cout<<"       "<<i+1<<"."<<spirits[i].getdname()<<"        "<<spirits[i].getprice()<<"$"<<endl<<endl<<endl;//items list and price
+									}
+								cout<<"\n\n\t\t\t\t\t\t---------------"<<endl;			
+    		cout<<"\t\t\t\t\t\t| Total :"<<sum<<"$ |"<<endl;
+			cout<<"\t\t\t\t\t\t---------------"<<endl;											//total price
+    		cout<<"*************************************************************"<<endl;
+			cout<<"*************************************************************"<<endl;
+									cout<<"\n  ->Choose  by typing the right number(1-3) or press 0 to go back to main Menu ";								
+										cin>>m;																														
+										if(m==1){	
+									do{	
+											system("cls");
+										menu0();						
+										cout<<"Select size : 1.Normal (60ml) 2.Double  (120ml) + "<<spirits[0].getdoubleprice()<<"$"<<endl;							
+											cin>>size;																			//size choice		
+										}while(size<0 || size>2);
+											if(size==1)	{
+															
+											cout<< spirits[0].getdname()<<"\nquantity :";												//quantity choice
+											cin >>q;        
+											sum+=spirits[0].getprice()*q;						//total price
+											for(int i=0;i<q;i++){										
+												orderitem=spirits[0].getdname();							//adding in order	
+												orders.push_back(orderitem);
+											}
+											}
+											if(size==2){
+													cout<< spirits[0].getdname()<< "\nquantity :";
+											cin >>q;
+											sum+=(spirits[0].getprice()+spirits[0].getdoubleprice())*q;
+												for(int i=0;i<q;i++){										
+											 orderitem=ord+spirits[0].getdname();
+												orders.push_back(orderitem); 
+											}
+											}													
+										}
+										if(m==2){										
+									do{	
+											system("cls");
+										menu0();						
+										cout<<"Select size : 1.Normal (60ml) 2.Double  (120ml) + "<<spirits[1].getdoubleprice()<<"$"<<endl;									
+											cin>>size;
+										}while(size<0 || size>2);
+										
+											if(size==1)	{
+															
+											cout<< spirits[1].getdname()<<"\nquantity :";
+											cin >>q;        
+											sum+=spirits[1].getprice()*q;
+											for(int i=0;i<q;i++){										
+												orderitem=spirits[1].getdname();
+												orders.push_back(orderitem);
+											}
+											system("CLS");
+											}
+											if(size==2){
+													cout<< spirits[1].getdname()<<"\nquantity :";
+											cin >>q;
+											sum+=(spirits[1].getprice()+spirits[1].getdoubleprice())*q;
+												for(int i=0;i<q;i++){										
+											 orderitem=ord+spirits[1].getdname();
+												orders.push_back(orderitem); 
+											}
+											}		
+										}
+										if(m==3){										
+										do{	
+											system("cls");
+										menu0();						
+										cout<<"Select size : 1.Normal (60ml) 2.Double  (120ml) + "<<spirits[2].getdoubleprice()<<"$"<<endl;									
+											cin>>size;
+										}while(size<0 || size>2);
+											if(size==1)	{
+															
+											cout<< spirits[2].getdname()<<"\nquantity :";
+											cin >>q;        
+											sum+=spirits[2].getprice()*q;
+											for(int i=0;i<q;i++){										
+												orderitem=spirits[2].getdname();
+												orders.push_back(orderitem);
+											}
+											system("CLS");
+											}
+											if(size==2){
+													cout<< spirits[2].getdname()<<"\nquantity :";
+											cin >>q;
+											sum+=(spirits[2].getprice()+spirits[2].getdoubleprice())*q;
+												for(int i=0;i<q;i++){										
+											 orderitem=ord+spirits[2].getdname();
+												orders.push_back(orderitem); 
+											}
+											}		
+										}	
+										system("CLS");
+										}while(m!=0);
+										break;										
+				case 2:		do{ menu0();
+								for(int i=0;i<3;i++){
+								cout<<"       "<<i+1<<"."<<cocktails[i].getdname()<<"        "<<cocktails[i].getprice()<<"$"<<cocktails[i].getdescription()<<endl<<endl<<endl;//items list and price
+									}
+							cout<<"\n\n\t\t\t\t\t\t---------------"<<endl;			
+    		cout<<"\t\t\t\t\t\t| Total :"<<sum<<"$ |"<<endl;
+			cout<<"\t\t\t\t\t\t---------------"<<endl;											//total price
+    		cout<<"*************************************************************"<<endl;
+			cout<<"*************************************************************"<<endl;
+									cout<<"\n  ->Choose  by typing the right number(1-3) or press 0 to go back to main Menu ";
+									
+										cin>>m;		
+											system("cls");
+										menu0();															
+										if(m==1){										
+											cout<< cocktails[0].getdname()<<"\nquantity :";
+											cin >>q;        
+											sum+=cocktails[0].getprice()*q;	
+												for(int i=0;i<q;i++){										
+												orderitem=cocktails[0].getdname();
+												orders.push_back(orderitem);
+											}
+											system("CLS");												
+										}
+										if(m==2){										
+										cout<<cocktails[1].getdname()<<"\nquantity :";
+										cin >>q;
+										sum+=cocktails[1].getprice()*q;
+											for(int i=0;i<q;i++){										
+												orderitem=cocktails[1].getdname();
+												orders.push_back(orderitem);
+											}
+										system("CLS");
+										}
+										if(m==3){										
+										cout<<cocktails[2].getdname()<<"\nquantity :";
+										cin >>q;
+										sum+=cocktails[2].getprice()*q;
+											for(int i=0;i<q;i++){										
+												orderitem=cocktails[2].getdname();
+												orders.push_back(orderitem);
+											}
+										system("CLS");
+										}	
+										system("CLS");
+											}while(m!=0);
+										break;
+				case 3:		do{		 menu0();
+								for(int i=0;i<3;i++){
+								cout<<"       "<<i+1<<"."<<mocktails[i].getdname()<<"        "<<mocktails[i].getprice()<<"$"<<mocktails[i].getdescription()<<endl<<endl<<endl;//items list and price
+									}
+								cout<<"\n\n\t\t\t\t\t\t---------------"<<endl;			
+    		cout<<"\t\t\t\t\t\t| Total :"<<sum<<"$ |"<<endl;
+			cout<<"\t\t\t\t\t\t---------------"<<endl;											//total price
+    		cout<<"*************************************************************"<<endl;
+			cout<<"*************************************************************"<<endl;
+									cout<<"\n  ->Choose  by typing the right number(1-3) or press 0 to go back to main Menu ";
+									
+										cin>>m;	
+											system("cls");
+										menu0();																
+										if(m==1){										
+											cout<< mocktails[0].getdname()<<"\nquantity :";
+											cin >>q;        
+											sum+=mocktails[0].getprice()*q;	
+												for(int i=0;i<q;i++){										
+												orderitem=mocktails[0].getdname();
+												orders.push_back(orderitem);
+											}
+											system("CLS");												
+										}
+										if(m==2){										
+										cout<<mocktails[1].getdname()<<"\nquantity :";
+										cin >>q;
+										sum+=mocktails[1].getprice()*q;
+											for(int i=0;i<q;i++){										
+												orderitem=mocktails[0].getdname();
+												orders.push_back(orderitem);
+											}
+										system("CLS");
+										}
+										if(m==3){										
+										cout<<mocktails[2].getdname()<<"\nquantity :";
+										cin >>q;
+										sum+=mocktails[2].getprice()*q;
+											for(int i=0;i<q;i++){										
+												orderitem=mocktails[0].getdname();
+												orders.push_back(orderitem);
+											}
+										system("CLS");
+										}	
+										system("CLS");
+										}while(m!=0);	
+										break;	
+				case 4:		do{			 menu0();
+								for(int i=0;i<3;i++){
+								cout<<"       "<<i+1<<"."<< refreshments[i].getdname()<<"        "<<refreshments[i].getprice()<<"$"<<endl<<endl<<endl;//items list and price
+									}									
+									cout<<"\n\n\t\t\t\t\t\t---------------"<<endl;			
+    		cout<<"\t\t\t\t\t\t| Total :"<<sum<<"$ |"<<endl;
+			cout<<"\t\t\t\t\t\t---------------"<<endl;											//total price
+    		cout<<"*************************************************************"<<endl;
+			cout<<"*************************************************************"<<endl;
+									cout<<"\n  ->Choose  by typing the right number(1-3) or press 0 to go back to main Menu ";								
+										cin>>m;																	
+										if(m==1){
+										do{	
+											system("cls");
+											menu0();										
+											cout<<"Select size : 1.Small (330ml) 2.Large  (1L) + "<<refreshments[0].getdoubleprice()<<"$"<<endl;									
+											cin>>size;
+											}while(size<0 || size>2);
+											if(size==1)	{
+																
+											cout<< refreshments[0].getdname()<<"\nquantity :";
+											cin >>q;        
+											sum+=refreshments[0].getprice()*q;
+												for(int i=0;i<q;i++){										
+												orderitem=ord2+refreshments[0].getdname();
+												orders.push_back(orderitem);
+											}
+											system("CLS");
+											}
+											if(size==2){
+													cout<< refreshments[0].getdname()<<"\nquantity :";
+											cin >>q;
+											sum+=(refreshments[0].getprice()+refreshments[0].getdoubleprice())*q;
+												for(int i=0;i<q;i++){										
+											 orderitem=ord1+refreshments[0].getdname();
+												orders.push_back(orderitem);
+											}	
+											}														
+										}
+										if(m==2){										
+									do{	
+											system("cls");
+											menu0();										
+											cout<<"Select size : 1.Small (330ml) 2.Large  (1L) + "<<refreshments[1].getdoubleprice()<<"$"<<endl;									
+											cin>>size;
+											}while(size<0 || size>2);
+											if(size==1)	{
+															
+											cout<< refreshments[1].getdname()<<"\nquantity :";
+											cin >>q;        
+											sum+=refreshments[1].getprice()*q;
+												for(int i=0;i<q;i++){										
+												orderitem=ord2+refreshments[1].getdname();
+												orders.push_back(orderitem);
+											}
+											system("CLS");
+											}
+											if(size==2){
+													cout<< refreshments[1].getdname()<<"\nquantity :";
+											cin >>q;
+											sum+=(refreshments[1].getprice()+refreshments[1].getdoubleprice())*q;
+												for(int i=0;i<q;i++){										
+											 orderitem=ord1+refreshments[1].getdname();
+												orders.push_back(orderitem);
+											}	
+											}
+										}
+										if(m==3){										
+										do{	
+											system("cls");
+											menu0();										
+											cout<<"Select size : 1.Small (330ml) 2.Large  (1L) + "<<refreshments[2].getdoubleprice()<<"$"<<endl;									
+											cin>>size;
+											}while(size<0 || size>2);
+											if(size==1)	{
+															
+											cout<< refreshments[2].getdname()<<"\nquantity :";
+											cin >>q;        
+											sum+=refreshments[2].getprice()*q;
+												for(int i=0;i<q;i++){										
+												orderitem=ord2+refreshments[2].getdname();
+												orders.push_back(orderitem);
+											}
+											system("CLS");
+											}
+											if(size==2){
+													cout<< refreshments[2].getdname()<<"\nquantity :";
+											cin >>q;
+											sum+=(refreshments[2].getprice()+refreshments[2].getdoubleprice())*q;
+												for(int i=0;i<q;i++){										
+											 orderitem=ord1+refreshments[2].getdname();
+												orders.push_back(orderitem);
+											}	
+											}
+										}	
+										system("CLS");
+										}while(m!=0);	
+										break;																																	
+										}		       			
+										}while(menu1!=5 );
+	do{
+	
+		 menu0();
+		 for(size_t i=0;i<orders.size();i++){					//output of order
+			cout<<"\t"<<i+1<<". "<<orders[i]<<endl;
+	}
+		cout<<"\n\t\t\t\t\t\t--------------------"<<endl;
+		cout<<"\t\t\t\t\t\tYour total is :"<<sum<<"$"<<endl;
+		cout<<"\t\t\t\t\t\t--------------------"<<endl;
+						getchar();										
+						cout<<"\n\n\n\t\tChoose payment method :"<<endl;
+						cout<<"\t\t 1.Cash\n\t\t 2Credit Card"<<endl;						
+						cout<<"\t\t ->Press 0 to go back to main menu";
+				          cin>>z;
+						  system("CLS");												  	
+					}while(z<0 || z>2);
+	}while(z==0);
+		if(z==1)	
+		displayDesign();	
+		 if(z==2){
+		 cout<<"enter your card details :"<<endl;	
+		 displayDesign();
+	}
+}
+
+void user::setall(string a,string b,string c,string d){
+	name=a;
+	address=b;
+	username=c;
+	password=d;
+}
+string user::getname(){
+	return this->name;
+}
+string user::getusername(){
+	return username;
+}
+string user::getpassword(){
+	return password;
+}
+void user::readall(){
+	
+	cout<<"name     --> ";
+	cin>>name;
+	cout<<"address  --> ";
+	cin>>this->address;
+	cout<<"username --> ";
+	cin>>username;
+	cout<<"password --> ";
+	cin>>password;
+}
+
+void drinks::setdrinks(string a,float b,float c){
+	name=a;
+	price=b;
+	doubleprice=c;
+}
+void drinks::setcocktails(string a,float c,string b){
+	name=a;
+	description=b;
+	price=c;
+	
+}
+string drinks::getdname(){
+	
+	
+	
+	return name;
+}
+float drinks::getprice(){
+	return price;
+}
+float drinks::getdoubleprice(){
+	return doubleprice;
+}
+string drinks::getdescription(){
+	return description;
+}
+
+void welcome(){
+	
+	cout<<"************************************************************************"<<endl;
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;
+	cout<<"*-------------|--WELCOME TO--------------------------------------------*"<<endl;
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;
+	cout<<"*-------------|-----------------'Crafty Cocktails'---------------------*"<<endl;
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;
+	cout<<"*-------------|--------()   ()      ()    /----------------------------*"<<endl;	
+	cout<<"*-------------|----------()      ()  ()  /-----------------------------*"<<endl;
+	cout<<"*-------------|-----------______________/___---------------------------*"<<endl;	
+	cout<<"*-------------|-----------             /   /---------------------------*"<<endl;	
+	cout<<"*-------------|----------- ^^^^^^^^^^^/^^^/----------------------------*"<<endl;
+	cout<<"*-------------|-------------      ___/   /-----------------------------*"<<endl;	
+	cout<<"*-------------|--------------    (   )  /------------------------------*"<<endl;	
+	cout<<"*-------------|---------------   (___) /-------------------------------*"<<endl;	
+	cout<<"*-------------|----------------  /    /--------------------------------*"<<endl;	
+	cout<<"*-------------|-----------------/    /---------------------------------*"<<endl;	
+	cout<<"*-------------|------------------   /----------------------------------*"<<endl;	
+	cout<<"*-------------|------------------- /-----------------------------------*"<<endl;	
+	cout<<"*-------------|-------------------||-----------------------------------*"<<endl;
+	cout<<"*-------------|-------------------||-----------------------------------*"<<endl;	
+	cout<<"*-------------|-------------------||-----------------------------------*"<<endl;	
+	cout<<"*-------------|-------------------||-----------------------------------*"<<endl;	
+	cout<<"*-------------|-------------------||-----------------------------------*"<<endl;	
+	cout<<"*-------------|------------------/  -----------------------------------*"<<endl;
+	cout<<"*-------------|-----------------/;;; ----------------------------------*"<<endl;
+	cout<<"*-------------|------------==============------------------------------*"<<endl;	
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;
+	cout<<"*-------------|--------------------------------------------------------*"<<endl;	
+	cout<<"Type anything to continue..";
+			
+		
+	
+}
+
+void menu(){
+		cout<<"*************************************************************"<<endl;
+		cout<<"  _   _   _   _   _   _     _   _   _   _   _   _   _   _   _ "<<endl;
+		cout<<"                                                             "<<endl;
+    	cout<<"( C | R | A | F | T | Y ) ( C | O | C | K | T | A | I | L | S )"<<endl;	
+		cout<<" _   _   _   _   _   _     _   _   _   _   _   _   _   _   _ "<<endl;
+		cout<<"                                                             "<<endl;
+		cout<<"*************************************************************\n\n\n";
+	
+	cout<<"  \t1. Spirits..\n\n  \t2. Cocktails..\n\n  \t3. Mocktails..\n\n  \t4. Refreshments..\n  "<<endl;
+	cout<<"\n\n*************************************************************"<<endl;
+			cout<<"*************************************************************"<<endl;
+		cout<<"\n\n\n  ->Select  by pressing a number 1-4\n  ->Press 5 to proceed to checkout"<<endl;
+	
+}
+void menu0(){
+	cout<<"*************************************************************"<<endl;
+		cout<<"  _   _   _   _   _   _     _   _   _   _   _   _   _   _   _ "<<endl;
+		cout<<"                                                             "<<endl;
+    	cout<<"( C | R | A | F | T | Y ) ( C | O | C | K | T | A | I | L | S )"<<endl;	
+		cout<<" _   _   _   _   _   _     _   _   _   _   _   _   _   _   _ "<<endl;
+		cout<<"                                                             "<<endl;
+		cout<<"*************************************************************\n\n\n";
+		
+}
+
+
+void displayDesign() {
+    cout << "**********************************************" << endl;
+    cout << "*          Crafty Cocktails                  *" << endl;
+    cout << "*                                            *" << endl;
+    cout << "*    Thank you for your order!               *" << endl;
+    cout << "*    Your cocktail is being prepared.        *" << endl;
+    cout << "*    The driver is on the way.               *" << endl;
+    cout << "*                                            *" << endl;
+    cout << "*               .-~~~-.                      *" << endl;
+    cout << "*             .'o   o  '.                    *" << endl;
+    cout << "*            :           :                   *" << endl;
+    cout << "*           :             :                  *" << endl;
+    cout << "*           :             :                  *" << endl;
+    cout << "*            :           :                   *" << endl;
+    cout << "*             `.       .'                    *" << endl;
+    cout << "*               `-~~~-'                      *" << endl;
+    cout << "*                                            *" << endl;
+    cout << "**********************************************" << endl;
+}
+int check(user u[]){
+	
+	string user,pass;
+	
+	cout<<"Enter your username :";
+	cin>>user;
+	getchar();
+	cout<<"Enter your password :";
+	cin>>pass;
+	system("cls");
+	menu0();
+	for (int i=0; i<3; i++) {
+        if (user == u[i].getusername() && pass == u[i].getpassword()) {
+            cout << "\n\n\t\t\t  Welcome back " << user<<"!!!"<<endl;
+            cout<<"\t\t\t------------------------";
+            getchar();
+            return 1;  
+        }
+    }
+ 	system("cls");
+    cout << "Invalid username or password\n Please try again.." << endl;
+    	 getchar();
+		 getchar();
+	 	system("cls");
+    return 0; 
+   
+}
