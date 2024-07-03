@@ -1,11 +1,13 @@
 /*
-The program is a drinks ordering system that allows you to select and order various drinks. 
+The program is a drinks ordering system that allows you to select and order various drinks using numeric input. 
 It has a user validation check and has the option to create user accounts.
 It provides a menu where you can browse different drink categories such as spirits, cocktails, mocktails, and refreshments. 
 You can choose a category, view the available drinks, select a drink, choose a size if applicable, enter the quantity, and add it to your order. 
 The program calculates the total price and keeps track of your order.
 Once you're finished selecting the drinks, you can check out and exit the program or return back to the menu.	
 */
+
+
 
 #include<iostream>
 #include<stdlib.h>
